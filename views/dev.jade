@@ -1,0 +1,126 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/public/stylesheets/tree.css')
+    link(rel='stylesheet', href='/public/stylesheets/submenu.css')
+    //meta(name='viewport', content='width=device-width, initial-scale=1')
+    script(src="/public/javascripts/dev.js")
+    //script(src="/public/engine/nodejs/run.js")
+    <!-- tree view -->
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js')
+    script(language='Javascript', type='text/javascript', src='/public/edit_area/edit_area_full.js')
+
+    <!-- Exemplo MENU: http://bootsnipp.com/snippets/e3yZK -->
+    <!-- https://codepen.io/rstrahl/pen/eJZQej -->
+    form
+        input(type='hidden',id='hd_no', name='hd_no', value='')
+
+    div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        div.container
+            div.navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='#') #{title}
+            div.collapse.navbar-collapse
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href='http://www.google.com.br', target='_blank') nodeJSDEV
+                ul#menu.nav.navbar-nav
+                    li
+                        a.dropdown-toggle(href='#', data-toggle='dropdown')
+                            | Projeto
+                            b.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='/projetos') Fechar
+                    li
+                        a.dropdown-toggle(href='#', data-toggle='dropdown')
+                            | Arquivo
+                        ul#menu_arquivo.dropdown-menu
+                            li
+                                li.dropdown-submenu
+                                    a(tabindex='-1', href='#') Novo
+                                    ul#menu_arquivo_novo.dropdown-menu
+                                        li
+                                            a(href='#') Arquivo
+                                        li
+                                            a(href='#') Script bash
+                    li
+                        a(href='JavaScript:Run()') Run
+    div
+        div.container-fluid
+            div.row
+                div.col-md-2
+                    div.btn-group-horizontal
+                        button.btn.btn-default(type='button', onclick='UploadArquivo()')
+                            span(class='glyphicon glyphicon-cloud-upload')
+                        button.btn.btn-default(type='button', onclick='NovaPasta()')
+                            span(class='glyphicon glyphicon-folder-open')
+                        button.btn.btn-default(type='button', onclick='NovoArquivos()')
+                            span(class='glyphicon glyphicon-certificate')
+                        button.btn.btn-default(type='button', onclick="CarregarArquivos()")
+                            span(class='glyphicon glyphicon-refresh')
+                    div(id='div_tree2_container',name='div_tree2_container')
+                div.col-md-10
+                    div(id='div_work')
+                        ul.nav.nav-tabs(id='ul_paginas')
+                        div.tab-content(id='div_paginas')
+    div#row_out.footerOut
+        div(id='div_out')
+            textarea.textwrapper(id="text_out", name='text_out', rows="20")
+    div.footer
+        div.btn-group-horizontal.lefttoolbar
+            button.btn.btn-default(type='button',onclick='ComutarVisibilidadeOut()')
+                span.glyphicon.glyphicon-log-out(aria-hidden='true')
+            button.btn.btn-default(type='button') B2
+            button.btn.btn-default(type='button') B3
+            button.btn.btn-default(type='button') C1
+            button.btn.btn-default(type='button') C2
+            button.btn.btn-default(type='button') C3
+    div.btn-group-vertical.lefttoolbar
+        br
+        br
+        br
+        br
+        button.btn.btn-default(type='button') B1
+        button.btn.btn-default(type='button') B2
+        button.btn.btn-default(type='button') B3
+        button.btn.btn-default(type='button') C1
+        button.btn.btn-default(type='button') C2
+        button.btn.btn-default(type='button') C3
+
+
+
+
+    //script(src="/public/engine/nodejs/menu_arquivo.js")
+    script(src='https://cdn.socket.io/socket.io-1.4.5.js')
+    script(src="/public/javascripts/output.js")
+    script.
+        // Carregar JS dinamicamente
+        LoadScripts();
+        var output_visbel = true;
+        function ComutarVisibilidadeOut(){
+            if(output_visbel){
+                $("#row_out").hide();
+            }
+            else{
+                $("#row_out").show();
+            }
+            output_visbel = !output_visbel;
+        }
+        ComutarVisibilidadeOut();
+        // TODO: HÁ UM ERRO ABAIXO.
+        var div = document.getElementById('div_tree2');
+        var div_out = document.getElementById('div_out');
+        CarregarArquivos();
+        Teste();
+        $('a').on('click', function () {
+            if ($(this).parent('li').hasClass('disabled')) {
+                return false;
+            }
+            ;
+        });
+

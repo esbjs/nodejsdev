@@ -1,0 +1,11 @@
+{
+  "name" : "project",
+  "fields" : [
+    {"field":"name", "caption":"Name",   "type": "string", "length" : 300, "readonly" : true},
+    {"field":"path",  "caption":"Path", "type": "directory", "length" : 500, "readonly" : true},
+    {"field":"engine", "caption":"Engine", "type": "string", "length" : 100, "readonly" : false},
+    {"field":"script",  "caption":"Script node.js", "type": "string", "length" : 500, "readonly" : false},
+    {"field":"bind",  "caption":"URL", "type": "string", "length" : 500, "readonly" : false}
+
+  ]
+}

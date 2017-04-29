@@ -1,0 +1,56 @@
+doctype html
+html
+   head
+      title= title
+      link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+      link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel='stylesheet')
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+      script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+      script(src="/public/javascripts/webservice.js")
+      script(src="/public/javascripts/auto-layout.js")
+      script(src="/public/javascripts/layout.js")
+      script(src="/public/engine/nodejs/run.js")
+      style(type='text/css').
+         .pull-right {
+            horiz-align: right;
+         }
+   body
+      ul.nav.nav-tabs
+         li.active
+            a(data-toggle='tab', href='#dados') Configuração
+         li
+            a(data-toggle='tab', href='#npm') Npm
+         li
+            a(data-toggle='tab', href='#process') Processos
+      div.tab-content
+         //       ----------------------------------- PANEL DDOS DADOS -----------------------------
+         div#dados.tab-pane.fade.in.active
+            div#div_config
+               a.btn.btn-primary(href="JavaScript:save('div_config','"+ rota +"')", role='button') Salvar
+               br
+         //       ----------------------------------- PANEL NPM -----------------------------
+         div#npm.tab-pane.fade
+            table(id="tab_npm",class="table")
+            br
+            div#add_npm
+               label.control-label Add new package:
+               input(type='text', id='txt_package', name='txt_package', placeholder='Package name')
+               button#btn_npm_install.btn.btn-success(onclick='NpmInstall()')
+                  li#li_btn_npm_install.fa.fa-spin
+                  |  npm install package
+               br
+               button#btn_npm.btn.btn-success(onclick='Npm()')
+                  li#li_btn_npm.fa.fa-spin
+                  |  npm install using package.json
+         div#process.tab-pane.fade
+            table(id='tab_process', class='table')
+      script.
+         // Carregando os dados da aba principal
+         var data = !{JSON.stringify(projeto)};
+         mount('div_config', data)
+         // Carregando os dados da aba NPM
+         PreencherTabela('/node/dependencies', 'tab_npm', ['Pacote', 'Versão'], null, NpmTable_Row);
+         PreencherTabela('/node/processnode', 'tab_process', ['','Usuário', 'PID', 'Comando'], null, ProcessTable_Row);
+
+
+

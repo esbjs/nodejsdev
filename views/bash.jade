@@ -1,0 +1,14 @@
+extends layout
+block content
+   h1 projeto
+   script.
+      EnviarJsonPost('/bash/run', {'command' : 'python2.7', 'parameters': ['/webdev/user/wellington/workspace/plagiarism/bot/totxt/app.py','&']}, function (path, entrada, data){
+         alert(data.pid);
+      });
+
+
+
+
+
+
+

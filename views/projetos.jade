@@ -1,0 +1,18 @@
+extends layout
+block content
+    // Criar novos projetos, abrir janela para escolher o modelo
+
+    // projetos
+    table(id="tab_div_list",class="table")
+    script(type='text/javascript').
+        function Abrir(projeto){
+            EnviarJsonPost("/projeto/entrar", {"name": projeto}, function (path, entrada, data) {
+                window.location.href = '/dev';
+            });
+        }
+        // Reinderiza a célula, para customização.
+        function Render(key, value){
+            if(key == 'nome') return "<a href='JavaScript:Abrir(\"" + value + "\")'>" + value + "</a>";
+            return value;
+        }
+        PreencherTabela('/projeto/listdata', 'tab_div_list', ['Projetos'], Render, null);

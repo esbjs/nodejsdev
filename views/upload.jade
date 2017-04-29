@@ -1,0 +1,16 @@
+extends layout_dialog
+block content
+
+    h4
+        div#path
+    form(role="form", action="/dev/uploadfile", method="post", enctype="multipart/form-data")
+        input(type='hidden',id='hd_no', name='hd_no', value='')
+        div(class="form-group")
+            label Enviar arquivo
+            input(type="file", name="file", id="file")
+            p
+            input#submit_upload(type='submit', value='Submit')
+
+    script.
+        $('#path').html('Path: ' + window.parent.GetInput('hd_no'));
+        $('input[id=hd_no]').val(window.parent.GetInput('hd_no'));

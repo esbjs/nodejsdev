@@ -1,0 +1,11 @@
+#!/bin/bash
+
+teste=`ps -ef | grep /webdev/ide/bin/auto.js | grep -v grep | awk '{print $9}'`;
+
+if [ "$teste" ];
+then
+    echo "Rodando"
+else
+    node /webdev/ide/bin/auto.js &
+fi
+
